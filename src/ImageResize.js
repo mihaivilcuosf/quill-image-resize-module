@@ -3,6 +3,7 @@ import DefaultOptions from './DefaultOptions';
 import { DisplaySize } from './modules/DisplaySize';
 import { Toolbar } from './modules/Toolbar';
 import { Resize } from './modules/Resize';
+import ImageFormat from './ImageFormat';
 
 const knownModules = { DisplaySize, Toolbar, Resize };
 
@@ -197,4 +198,5 @@ export default class ImageResize {
 
 if (window.Quill) {
     window.Quill.register('modules/imageResize', ImageResize);
+    window.Quill.register(ImageFormat, true);
 }
