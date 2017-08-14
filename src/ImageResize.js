@@ -36,6 +36,11 @@ export default class ImageResize {
         // disable native image resizing on firefox
         document.execCommand('enableObjectResizing', false, 'false');
 
+        // disable native image resizing on ie11
+        document.body.addEventListener('mscontrolselect', function(evt) {
+            evt.preventDefault();
+        });
+
         // respond to clicks inside the editor
         this.quill.root.addEventListener('click', this.handleClick, false);
 
@@ -125,7 +130,9 @@ export default class ImageResize {
 
         // Create and add the overlay
         this.overlay = document.createElement('div');
-        Object.assign(this.overlay.style, this.options.overlayStyles);
+        for(var prop in this.options.overlayStyles) {
+            this.overlay.style[prop] = this.options.overlayStyles[prop];
+        }
 
         this.quill.root.parentNode.appendChild(this.overlay);
 
@@ -159,12 +166,10 @@ export default class ImageResize {
         const imgRect = this.img.getBoundingClientRect();
         const containerRect = parent.getBoundingClientRect();
 
-        Object.assign(this.overlay.style, {
-            left: `${imgRect.left - containerRect.left - 1 + parent.scrollLeft}px`,
-            top: `${imgRect.top - containerRect.top + parent.scrollTop}px`,
-            width: `${imgRect.width}px`,
-            height: `${imgRect.height}px`,
-        });
+        this.overlay.style['left'] = `${imgRect.left - containerRect.left - 1 + parent.scrollLeft}px`;
+        this.overlay.style['top'] = `${imgRect.top - containerRect.top + parent.scrollTop}px`;
+        this.overlay.style['width'] = `${imgRect.width}px`;
+        this.overlay.style['height'] = `${imgRect.height}px`;
     };
 
     hide = () => {

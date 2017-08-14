@@ -12,7 +12,9 @@ export class Toolbar extends BaseModule {
     onCreate = () => {
 		// Setup Toolbar
         this.toolbar = document.createElement('div');
-        Object.assign(this.toolbar.style, this.options.toolbarStyles);
+        for (var prop in this.options.toolbarStyles) {
+            this.toolbar.style[prop] = this.options.toolbarStyles[prop];
+        }
         this.overlay.appendChild(this.toolbar);
 
         // Setup Buttons
@@ -80,11 +82,17 @@ export class Toolbar extends BaseModule {
 					// image may change position; redraw drag handles
 				this.requestUpdate();
 			});
-			Object.assign(button.style, this.options.toolbarButtonStyles);
+            for(var prop in this.options.toolbarButtonStyles) {
+                button.style[prop] = this.options.toolbarButtonStyles[prop];
+            }
+
 			if (idx > 0) {
 				button.style.borderLeftWidth = '0';
 			}
-			Object.assign(button.children[0].style, this.options.toolbarButtonSvgStyles);
+            for(var prop in this.options.toolbarButtonSvgStyles) {
+                button.children[0].style[prop] = this.options.toolbarButtonSvgStyles[prop];
+            }
+
 			if (alignment.isApplied()) {
 					// select button if previously applied
 				this._selectButton(button);
