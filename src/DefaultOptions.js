@@ -52,8 +52,5 @@ export default {
         verticalAlign: 'middle',
     },
     toolbarButtonSvgStyles: {
-        fill: '#444',
-        stroke: '#444',
-        strokeWidth: '2',
     },
 };
