@@ -1,9 +1,12 @@
-import IconAlignLeft from '../assets/icons/align-left.svg';
-import IconAlignCenter from '../assets/icons/align-center.svg';
-import IconAlignRight from '../assets/icons/align-right.svg';
+import IconAlignLeft from 'quill/assets/icons/align-left.svg';
+import IconAlignCenter from 'quill/assets/icons/align-center.svg';
+import IconAlignRight from 'quill/assets/icons/align-right.svg';
 import { BaseModule } from './BaseModule';
 
-const Parchment = window.Quill.imports.parchment;
+import VQuill from 'quill';
+const Quill = window.Quill || VQuill;
+
+const Parchment = Quill.imports.parchment;
 const FloatStyle = new Parchment.Attributor.Style('float', 'float');
 const MarginStyle = new Parchment.Attributor.Style('margin', 'margin');
 const DisplayStyle = new Parchment.Attributor.Style('display', 'display');
@@ -12,9 +15,7 @@ export class Toolbar extends BaseModule {
     onCreate = () => {
 		// Setup Toolbar
         this.toolbar = document.createElement('div');
-        for (var prop in this.options.toolbarStyles) {
-            this.toolbar.style[prop] = this.options.toolbarStyles[prop];
-        }
+        Object.assign(this.toolbar.style, this.options.toolbarStyles);
         this.overlay.appendChild(this.toolbar);
 
         // Setup Buttons
@@ -82,17 +83,11 @@ export class Toolbar extends BaseModule {
 					// image may change position; redraw drag handles
 				this.requestUpdate();
 			});
-            for(var prop in this.options.toolbarButtonStyles) {
-                button.style[prop] = this.options.toolbarButtonStyles[prop];
-            }
-
+			Object.assign(button.style, this.options.toolbarButtonStyles);
 			if (idx > 0) {
 				button.style.borderLeftWidth = '0';
 			}
-            for(var prop in this.options.toolbarButtonSvgStyles) {
-                button.children[0].style[prop] = this.options.toolbarButtonSvgStyles[prop];
-            }
-
+			Object.assign(button.children[0].style, this.options.toolbarButtonSvgStyles);
 			if (alignment.isApplied()) {
 					// select button if previously applied
 				this._selectButton(button);

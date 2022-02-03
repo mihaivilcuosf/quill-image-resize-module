@@ -30,9 +30,7 @@ export class Resize extends BaseModule {
             { right: handleXOffset, bottom: handleYOffset },    // bottom right
             { left: handleXOffset, bottom: handleYOffset },     // bottom left
         ].forEach((pos, idx) => {
-            for (var prop in pos) {
-                this.boxes[idx].style[prop] = pos[prop];   
-            }
+            Object.assign(this.boxes[idx].style, pos);
         });
     };
 
@@ -41,9 +39,7 @@ export class Resize extends BaseModule {
         const box = document.createElement('div');
 
         // Star with the specified styles
-        for (var prop in this.options.handleStyles) {
-            box.style[prop] = this.options.handleStyles[prop];
-        }
+        Object.assign(box.style, this.options.handleStyles);
         box.style.cursor = cursor;
 
         // Set the width/height to use 'px'
