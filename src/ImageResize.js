@@ -3,7 +3,6 @@ import DefaultOptions from './DefaultOptions';
 import { DisplaySize } from './modules/DisplaySize';
 import { Toolbar } from './modules/Toolbar';
 import { Resize } from './modules/Resize';
-import ImageFormat from './ImageFormat';
 
 const knownModules = { DisplaySize, Toolbar, Resize };
 
@@ -35,11 +34,6 @@ export default class ImageResize {
 
         // disable native image resizing on firefox
         document.execCommand('enableObjectResizing', false, 'false');
-
-        // disable native image resizing on ie11
-        document.body.addEventListener('mscontrolselect', function(evt) {
-            evt.preventDefault();
-        });
 
         // respond to clicks inside the editor
         this.quill.root.addEventListener('click', this.handleClick, false);
@@ -130,9 +124,7 @@ export default class ImageResize {
 
         // Create and add the overlay
         this.overlay = document.createElement('div');
-        for(var prop in this.options.overlayStyles) {
-            this.overlay.style[prop] = this.options.overlayStyles[prop];
-        }
+        Object.assign(this.overlay.style, this.options.overlayStyles);
 
         this.quill.root.parentNode.appendChild(this.overlay);
 
@@ -166,10 +158,12 @@ export default class ImageResize {
         const imgRect = this.img.getBoundingClientRect();
         const containerRect = parent.getBoundingClientRect();
 
-        this.overlay.style['left'] = `${imgRect.left - containerRect.left - 1 + parent.scrollLeft}px`;
-        this.overlay.style['top'] = `${imgRect.top - containerRect.top + parent.scrollTop}px`;
-        this.overlay.style['width'] = `${imgRect.width}px`;
-        this.overlay.style['height'] = `${imgRect.height}px`;
+        Object.assign(this.overlay.style, {
+            left: `${imgRect.left - containerRect.left - 1 + parent.scrollLeft}px`,
+            top: `${imgRect.top - containerRect.top + parent.scrollTop}px`,
+            width: `${imgRect.width}px`,
+            height: `${imgRect.height}px`,
+        });
     };
 
     hide = () => {
@@ -203,5 +197,4 @@ export default class ImageResize {
 
 if (window.Quill) {
     window.Quill.register('modules/imageResize', ImageResize);
-    window.Quill.register(ImageFormat, true);
 }

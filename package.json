@@ -1,18 +1,18 @@
 {
   "name": "quill-image-resize-module",
-  "version": "3.1.4",
+  "version": "4.0.0",
   "description": "A module for Quill rich text editor to allow images to be resized.",
   "main": "image-resize.min.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "release": "node_modules/.bin/webpack -p --progress --colors",
-    "dev": "node_modules/.bin/webpack --progress --colors --watch",
-    "lint": "./node_modules/.bin/eslint --ext js,es6 src",
-    "fixlint": "./node_modules/.bin/eslint --fix --ext js,es6 src"
+    "release": "webpack -p --progress --colors",
+    "dev": "webpack --progress --colors --watch",
+    "lint": "eslint --ext js,es6 src",
+    "fixlint": "eslint --fix --ext js,es6 src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GoIntegro/quill-image-resize-module.git"
+    "url": "git+https://github.com/kensnyder/quill-image-resize-module.git"
   },
   "keywords": [
     "quill",
@@ -22,11 +22,20 @@
     "sizer"
   ],
   "author": "@kensnyder",
+  "contributors": [
+    {
+      "name": "Wikia",
+      "url": "https://github.com/Wikia"
+    }
+  ],
   "license": "MIT",
-  "homepage": "https://github.com/GoIntegro/quill-image-resize-module",
+  "bugs": {
+    "url": "https://github.com/kensnyder/quill-image-resize-module/issues"
+  },
+  "homepage": "https://github.com/kensnyder/quill-image-resize-module#readme",
   "devDependencies": {
     "babel-cli": "^6.24.0",
-      "babel-eslint": "^7.2.1",
+    "babel-eslint": "^7.2.1",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-preset-env": "^1.2.2",
