@@ -3,6 +3,7 @@ export default {
         'DisplaySize',
         'Toolbar',
         'Resize',
+        'Alt',
     ],
     overlayStyles: {
         position: 'absolute',
@@ -17,6 +18,18 @@ export default {
         border: '1px solid #777',
         boxSizing: 'border-box',
         opacity: '0.80',
+    },
+    altStyles: {
+        position: 'absolute',
+        font: '12px/1.0 Arial, Helvetica, sans-serif',
+        padding: '4px 8px',
+        textAlign: 'center',
+        backgroundColor: 'white',
+        color: '#333',
+        border: '1px solid #777',
+        boxSizing: 'border-box',
+        opacity: '0.90',
+        cursor: 'pointer',
     },
     displayStyles: {
         position: 'absolute',

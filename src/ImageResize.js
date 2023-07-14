@@ -3,8 +3,9 @@ import DefaultOptions from './DefaultOptions';
 import { DisplaySize } from './modules/DisplaySize';
 import { Toolbar } from './modules/Toolbar';
 import { Resize } from './modules/Resize';
+import { Alt } from './modules/Alt';
 
-const knownModules = { DisplaySize, Toolbar, Resize };
+const knownModules = { DisplaySize, Toolbar, Resize, Alt };
 
 /**
  * Custom module for quilljs to allow user to resize <img> elements
@@ -186,6 +187,10 @@ export default class ImageResize {
     };
 
     checkImage = (evt) => {
+        if (evt.target && evt.target.tagName == 'INPUT') {
+            return;
+        }
+
         if (this.img) {
             if (evt.keyCode == 46 || evt.keyCode == 8) {
                 window.Quill.find(this.img).deleteAt(0);
